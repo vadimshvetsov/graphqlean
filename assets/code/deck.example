@@ -1,0 +1,15 @@
+const CodeSlide = require('code-slide');
+ 
+const component = () => (
+  <CodeSlide
+    lang="jsx"
+    code={codeSamples.deck}
+    ranges={[
+      { loc: [0, 1], title: 'Use down arrow' },
+      { loc: [2, 3], note: "Explain your code" },
+      { loc: [3, 4], note: "Go deeper" },
+      { loc: [4, 7] },
+      { loc: [7, 12] },
+    ]}
+  />
+);

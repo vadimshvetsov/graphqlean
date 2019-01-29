@@ -1,0 +1,66 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+ 
+import { selectors } from 'reducers';
+import { fetchCleaner } from 'sagas/profile';
+import { getStructShape, cleanerShape } from 'utils/propTypes';
+ 
+import Screen from 'components/Screen';
+import Text from 'components/Text';
+import LoadingIndicator from 'components/LoadingIndicator';
+import ErrorMessage from 'components/ErrorMessage';
+ 
+class Profile extends Component {
+  static propTypes = {
+    cleanerStruct: PropTypes.shape(
+      getStructShape(PropTypes.shape(cleanerShape)),
+    ).isRequired,
+    fetchCleaner: PropTypes.func.isRequired,
+  };
+ 
+  componentDidMount() {
+    this.props.fetchCleaner();
+  }
+ 
+  componentDidUpdate(prevProps) {
+    const { cleanerStruct } = this.props;
+    if (
+      prevProps.cleanerStruct.isFetching
+      && !cleanerStruct.isFetching
+      && !cleanerStruct.error
+    ) {
+      this.doAnything();
+    }
+  }
+ 
+  doAnything = () => {
+    // Do anything when request completed
+  }
+ 
+  render() {
+    const { cleanerStruct } = this.props;
+    if (cleanerStruct.error) {
+      return <ErrorMessage/>;
+    }
+    if (cleanerStruct.isFetching) {
+      return <LoadingIndicator/>;
+    }
+    const { phone } = cleanerStruct.data;
+    return (
+      <Screen>
+        <Text>{`Your phone is: ${phone}`}</Text>
+      </Screen>
+    );
+  }
+}
+ 
+const mapStateToProps = state => ({
+  cleanerStruct: selectors.getCleaner(state),
+});
+ 
+const mapDispatchToProps = {
+  fetchCleaner,
+};
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

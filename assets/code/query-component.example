@@ -1,0 +1,26 @@
+import React from 'react';
+import { Query } from 'react-apollo';
+ 
+import { GET_CLEANER } from 'graphql/queries';
+ 
+import Screen from 'components/Screen';
+import LoadingIndicator from 'components/LoadingIndicator';
+import ErrorMessage from 'components/ErrorMessage';
+import Text from 'components/Text';
+ 
+const Cleaner = () => (
+  <Screen>
+    <Query query={GET_CLEANER}>
+      {({ data, loading, error }) => {
+        if (error) return <ErrorMessage/>;
+        if (loading) return <LoadingIndicator/>;
+        const { phone } = data.cleaner;
+        return (
+          <Text>{`Your phone is: ${phone}`}</Text>
+        );
+      }}
+    </Query>
+  </Screen>
+);
+ 
+export default Cleaner;

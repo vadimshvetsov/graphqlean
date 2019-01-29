@@ -1,0 +1,19 @@
+import { combineReducers } from 'redux';
+import { getStruct, reducer as struct } from 'redux-struct';
+import { reducer as formReducer } from 'redux-form';
+ 
+export const constants = {
+  cleanerStructId: 'cleaner',
+  // Other constants
+};
+ 
+export const selectors = {
+  getCleaner: getStruct(constants.cleanerStructId),
+  // Other redux-struct selectors
+};
+ 
+const rootReducer = combineReducers({
+  struct,
+  form: formReducer,
+  // Other reducers
+});

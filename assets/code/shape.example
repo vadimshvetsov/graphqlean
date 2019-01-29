@@ -1,0 +1,31 @@
+import PropTypes from 'prop-types';
+ 
+const errorShape = (props, propName, componentName) => {
+  const error = props[propName];
+  if (error instanceof Error || error === null) return null;
+  return new Error(`Invalid prop error in ${componentName}, expected Error instance or null, got ${JSON.stringify(error)}`);
+};
+ 
+export const getStructShape = dataShape => ({
+  isFetching: PropTypes.bool.isRequired,
+  error: errorShape,
+  ...dataShape && { data: dataShape },
+});
+ 
+export const cleanerShape = {
+  id: PropTypes.number.isRequired,
+  fullName: PropTypes.string.isRequired,
+  image: PropTypes.shape({
+    url: PropTypes.string,
+  }).isRequired,
+  rating: PropTypes.number,
+  completedOrdersCount: PropTypes.number.isRequired,
+  upcomingOrdersCount: PropTypes.number.isRequired,
+  email: PropTypes.string,
+  phone: PropTypes.string.isRequired,
+  regionId: PropTypes.number.isRequired,
+  newSkill: PropTypes.string.isRequired,
+  cleanerType: PropTypes.string.isRequired,
+  legalEntity: PropTypes.string.isRequired,
+  blocked: PropTypes.bool.isRequired,
+};

@@ -1,0 +1,40 @@
+import gql from 'graphql-tag';
+ 
+export const GET_CLEANER = gql`
+  query GetCleaner {
+    cleaner {
+      id
+      fullName
+      image {
+        url
+      }
+      rating
+      completedOrdersCount
+      upcomingOrdersCount
+      email
+      phone
+      regionId
+      newSkill
+    }
+  }
+`;
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

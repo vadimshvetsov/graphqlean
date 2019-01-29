@@ -1,0 +1,20 @@
+const UPDATE_CLEANER = gql`
+  mutation UpdateCleaner($cleaner: CleanerPayload!) {
+    updateCleaner(cleaner: $cleaner) {
+      cleaner {
+        id
+        name
+        phone
+      }
+      profile {
+        name
+        phone
+      }
+      notifications {
+        id
+        title
+        htmlBody
+      }
+    }
+  }
+`;

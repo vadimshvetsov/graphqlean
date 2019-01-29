@@ -1,0 +1,21 @@
+const Agreement = () => (
+  <ApolloConsumer>
+    {client => (
+      {/* Текст соглашения */}
+      <Button 
+        title="Принять"
+        onClick={() => client.writeData({
+          data: { agreement: { isAccepted: true } } 
+        })}
+      >
+    )}
+  </ApolloConsumer>
+);
+
+const GET_AGREEMENT_STATUS = gql`
+  query GetAgreement {
+    agreement: {
+      isAccepted @client
+    }
+  }
+`;

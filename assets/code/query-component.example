@@ -12,8 +12,8 @@ const Cleaner = () => (
   <Screen>
     <Query query={GET_CLEANER}>
       {({ data, loading, error }) => {
+        if (loading || !data) return <LoadingIndicator/>;
         if (error) return <ErrorMessage/>;
-        if (loading) return <LoadingIndicator/>;
         const { phone } = data.cleaner;
         return (
           <Text>{`Your phone is: ${phone}`}</Text>

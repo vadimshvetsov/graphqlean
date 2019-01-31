@@ -8,7 +8,7 @@
     "build": "npm run clean & cross-env NODE_ENV=production webpack --config webpack.config.production.js",
     "clean": "rimraf dist",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d .",
     "export": "spectacle-renderer --delay 3000",
     "lint": "eslint --ext .js,.jsx .",
     "start": "cross-env NODE_ENV=development node server.js"

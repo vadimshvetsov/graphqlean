@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  BlockQuote,
-  Cite,
   CodePane,
   Deck,
   Heading,
@@ -11,7 +9,6 @@ import {
   List,
   ListItem,
   Notes,
-  Quote,
   Table,
   TableHeaderItem,
   TableItem,
@@ -109,11 +106,11 @@ const Presentation = () => (
         <ListItem>Боли взаимодействия Redux с сервером</ListItem>
         <ListItem margin="15px 0">Решения GraphQL</ListItem>
         <ListItem>Плавная миграция с Redux на GraphQL</ListItem>
-        <ListItem margin="15px 0 0 0">Внедрение GraphQL в приложение клинеров</ListItem>
+        <ListItem margin="15px 0">Внедрение GraphQL в приложение клинеров</ListItem>
       </List>
     </Slide>
     <Slide bgColor="primary">
-      <Heading size={3} textColor="secondary" margin="0 0 50px 0">
+      <Heading size={3} textColor="secondary" margin="0 0 50px">
         MLS Case Study
       </Heading>
       <Image src={images.mls} width={1000} margin="0 0 30px"/>
@@ -132,31 +129,32 @@ const Presentation = () => (
     </Slide>
 
     <Slide bgColor="primary">
-      <Heading fit textColor="secondary" margin="0 0 50px 0">
+      <Heading fit textColor="secondary" margin="0 0 50px">
         Сравнение стоимости разработки решений
       </Heading>
       <Notes>
         Я не претендендую на абсолютную точность расчётов.
-        Для подсчета средних значений временных затрат я пользовался выборкой из 20 задач
-        с запросами к серверу, которые мне приходилось решать в разных проектах Qlean.
+        Для подсчета средних значений временных затрат я анализировал кодовую базу клинерского
+        приложения и пользовался выборкой из 20 задач с запросами к серверу,
+        которые мне приходилось решать в разных проектах Qlean.
         Не все задачи подразумевали решение сложных проблем, выборка по ним меньше.
         Эти расчеты наиболее правильно применять в относительном соотношении
       </Notes>
     </Slide>
     <Slide>
       <Text textColor="secondary" margin="0 0 20px" textSize={40}>
-        Получение данных запроса с Redux - 27 минут
+        Получение данных запроса с Redux - 40 минут
       </Text>
       <Image src={images.hard} width={400}/>
       <Text textColor="secondary" margin="20px 0 20px" textSize={40}>
-        Получение данных запроса с GraphQL - 6 минут
+        Получение данных запроса с GraphQL - 10 минут
       </Text>
       <Image src={images.easy} width={400}/>
-      <Notes>44 запроса в клинерском приложении, 58 в клиентском, 36 часов в пользу GraphQL</Notes>
+      <Notes>30 GET запросов в клинерском приложении</Notes>
     </Slide>
     <Slide>
-      <Heading size={4} textColor="secondary" margin="0 0 20px 0">
-        Решение других задач в минутах
+      <Heading size={4} textColor="secondary" margin="0 0 20px">
+        Решение других задач
       </Heading>
       <Table style={{ borderSpacing: '0 20px', color: colors.white }}>
         <TableRow style={{ color: colors.red }}>
@@ -166,72 +164,50 @@ const Presentation = () => (
         </TableRow>
         <TableRow>
           <TableItem>Пагинация</TableItem>
-          <TableItem>60</TableItem>
-          <TableItem>5</TableItem>
+          <TableItem>60 м</TableItem>
+          <TableItem>10 м</TableItem>
         </TableRow>
         <TableRow>
           <TableItem>Валидация</TableItem>
-          <TableItem>20</TableItem>
-          <TableItem>5</TableItem>
+          <TableItem>30 м</TableItem>
+          <TableItem>10 м</TableItem>
         </TableRow>
         <TableRow>
           <TableItem>Инвалидация</TableItem>
-          <TableItem>30</TableItem>
-          <TableItem>3</TableItem>
+          <TableItem>20 м</TableItem>
+          <TableItem>5 м</TableItem>
         </TableRow>
         <TableRow>
           <TableItem>Кеширование</TableItem>
-          <TableItem>20</TableItem>
-          <TableItem>2</TableItem>
-        </TableRow>
-        <TableRow>
-          <TableItem>Сихронизация</TableItem>
-          <TableItem>15</TableItem>
-          <TableItem>0</TableItem>
+          <TableItem>N/A</TableItem>
+          <TableItem>2 м</TableItem>
         </TableRow>
         <TableRow>
           <TableItem>Оптимистичный UI</TableItem>
-          <TableItem>10</TableItem>
-          <TableItem>5</TableItem>
+          <TableItem>N/A</TableItem>
+          <TableItem>5 м</TableItem>
         </TableRow>
         <TableRow style={{ color: colors.red }}>
           <TableItem>Итого</TableItem>
-          <TableItem>155</TableItem>
-          <TableItem>20</TableItem>
+          <TableItem>110 м</TableItem>
+          <TableItem>32 м</TableItem>
         </TableRow>
         <Notes>
-          Курсорная и оффсетная пагинация из коробки
-          Валидация описывается в схеме и достается прямо в компоненте
-          Можно описать политику кеширования и инвалидации запроса
-          Кеширование любой сущности при условии описании резолва
-          Во время мутации мы просим сервер вернуть другие зависимые коллекции для синхронизации
-          Оптимистичный апдейт описывается декларативно
+          Курсорная и оффсетная пагинация из коробки.
+          Ошибки валидации описываются в схеме и достаются прямо в компоненте в удобном формате.
+          Можно описать политику кеширования и инвалидации запроса,
+          в мутациях указываем что обновить.
+          Кеширование любой сущности при условии описании её резолва.
+          Оптимистичный апдейт описывается декларативно, c Redux это может достигаться костылями,
+          например эмитирование преждевременного ответа сервера
 
           В приложении, имеющим 50 запросов к серверу каждая из этих вещей
           может усредненно может присутствовать в 20 экземеплярах
-          Ещё 45 часов в пользу GraphQL на приложение и 90 часов на два приложения
         </Notes>
       </Table>
-    </Slide>
-    <Slide bgColor="primary">
-      <Heading fit textColor="quaternary" margin="0 0 50px">
-        Обмен данными с сервером в цифрах
-      </Heading>
-      <Heading size={4} textColor="secondary" margin="0 0 50px">
-        Redux ~ 149 часов без дебага
-      </Heading>
-      <Heading size={4} textColor="secondary" margin="0 0 150px">
-        GraphQL ~ 24 часа без дебага
-      </Heading>
-      <Text textSize={25} textColor="tertiary">
-        Выборка составлена по приложениям Qlean для клинеров и клиентов
+      <Text textSize={20} textColor="tertiary" margin="20px 0">
+        Расчеты основаны на анализе 20 задач с логикой обработки данных с сервера
       </Text>
-      <Notes>
-        К сожалению невозможно посчитать время, которые мы тратим на дебаг.
-        Однажды с неработающим линтером в HRM я порядка 3 часов искал ошибку в коде,
-        оказалось запятая прилипла к номерам линий в редакторе.
-        Про непойманные ошибки в промисах вообще отдельный разговор, да и про JS в целом
-      </Notes>
     </Slide>
 
     <Slide bgColor="primary">
@@ -239,7 +215,43 @@ const Presentation = () => (
         Уменьшение связанности сервера и клиента
       </Heading>
       <Notes>
-        Что сказать
+        Сейчас решение любой задачи сильно завязано на коммуникации фронтендера с бэкендером.
+        Мы часто просим бэкендера новый эндпоинт даже для существуещих моделей.
+        У нас есть много эндпоинтов на запрос одной и той же коллекции.
+      </Notes>
+    </Slide>
+    <Slide bgColor="primary" textColor="tertiary">
+      <Heading size={2} textColor="secondary">Бэкенд</Heading>
+      <List>
+        <ListItem>Схема и типизация сущностей на бэкенде</ListItem>
+        <ListItem margin="25px 0">Проверка на обратную совместимость в CI</ListItem>
+        <ListItem>Не нужен контроллер, только модель</ListItem>
+        <ListItem margin="25px 0 0">Расширение условий фильтрации коллекций</ListItem>
+      </List>
+      <Notes>
+        Да в JS есть только Number для всех чисел, типизирование всех данных на бэкенде.
+        Можно валидировать схему в CI на обратную совместимость,
+        расширять API новыми коллекциями, депрекейтить старые.
+        Можно версионировать схему и регулировать контекстом нужные для запроса,
+        но это в самых крайних случаях.
+        Нужно описывать модели и резолверы для коллекций и полей.
+        Можно добавлять различные условия фильтрации, чтобы фронт сам решал как и когда фильтровать.
+      </Notes>
+    </Slide>
+    <Slide bgColor="primary" textColor="tertiary">
+      <Heading size={2} textColor="secondary">Фронтенд</Heading>
+      <List>
+        <ListItem>Инкапсуляция согласования данных в схему</ListItem>
+        <ListItem margin="25px 0">Нет необходимости написания PropTypes</ListItem>
+        <ListItem>Вложенные связи без написания бэкенда</ListItem>
+        <ListItem margin="25px 0">Следование спецификации GraphQL</ListItem>
+      </List>
+      <Notes>
+        После определния схемы данных коммуникация необязательна.
+        Вероятности что мы получим что-то не соответствующее схеме нет.
+        Можем сами фильтровать коллекции под кейс, описывать вложенность и реляционные данные.
+        Часто задачи будут решать только на фронте, когда раньше понадобился бы ещё и бэкенд.
+        Благодаря наличию спецификации GraphQL фронтенд не зависит от имплементации на бэкенде.
       </Notes>
     </Slide>
 
@@ -260,12 +272,15 @@ const Presentation = () => (
       <List ordered>
         <ListItem>Создать селектор и константу</ListItem>
         <ListItem margin="25px 0">Создать экшн, воркер и вотчера саги</ListItem>
-        <ListItem>Зарегистрировать вотчера</ListItem>
+        <ListItem>Зарегистрировать вотчер</ListItem>
         <ListItem margin="25px 0">Типизировать формат данных</ListItem>
         <ListItem>Прокинуть и вызвать экшн в компоненте</ListItem>
         <ListItem margin="25px 0">Передать и проверить данные в компоненте</ListItem>
         <ListItem>Вызвать метод после получения данных</ListItem>
       </List>
+      <Notes>
+        Часто придется думать о нейминге как во время написания кода, так и на ревью.
+      </Notes>
     </Slide>
     <CodeSlide
       lang="js"
@@ -275,7 +290,7 @@ const Presentation = () => (
         { loc: [0, 0], title: 'Создаем константу и селектор' },
         { loc: [4, 8] },
         { loc: [9, 13] },
-        { loc: [14, 19], note: 'Estimation: 2 min' },
+        { loc: [14, 19], note: 'Estimation: 4 min' },
       ]}
     />
     <CodeSlide
@@ -286,7 +301,7 @@ const Presentation = () => (
         { loc: [0, 0], title: 'Создаем экшн, воркер и вотчер' },
         { loc: [5, 6] },
         { loc: [16, 19] },
-        { loc: [7, 15], note: 'Estimation: 4 min' },
+        { loc: [7, 15], note: 'Estimation: 5 min' },
       ]}
     />
     <CodeSlide
@@ -298,15 +313,6 @@ const Presentation = () => (
       ]}
     />
     <CodeSlide
-      lang="js"
-      code={codeSamples.shape}
-      textSize={23}
-      ranges={[
-        { loc: [0, 0], title: 'Типизируем данные' },
-        { loc: [14, 31], note: 'Estimation: 5 min' },
-      ]}
-    />
-    <CodeSlide
       lang="jsx"
       code={codeSamples.component}
       textSize={23}
@@ -315,7 +321,16 @@ const Presentation = () => (
         { loc: [5, 6] },
         { loc: [61, 66] },
         { loc: [18, 19] },
-        { loc: [21, 24], note: 'Estimation: 3 min' },
+        { loc: [21, 24], note: 'Estimation: 5 min' },
+      ]}
+    />
+    <CodeSlide
+      lang="js"
+      code={codeSamples.shape}
+      textSize={23}
+      ranges={[
+        { loc: [0, 0], title: 'Типизируем данные' },
+        { loc: [14, 31], note: 'Estimation: 10 min' },
       ]}
     />
     <CodeSlide
@@ -329,7 +344,7 @@ const Presentation = () => (
         { loc: [65, 66] },
         { loc: [6, 7] },
         { loc: [15, 18] },
-        { loc: [40, 55], note: 'Estimation: 10 min' },
+        { loc: [40, 55], note: 'Estimation: 15 min' },
       ]}
     />
     <CodeSlide
@@ -344,18 +359,19 @@ const Presentation = () => (
     <Slide bgColor="primary" textColor="tertiary">
       <Heading fit textColor="secondary" caps>Сложные случаи</Heading>
       <List>
-        <ListItem>Реакция на изменения в других компонентах</ListItem>
-        <ListItem margin="25px 0">Серверная валидация форм</ListItem>
+        <ListItem>Инвалидация коллекций после изменений</ListItem>
+        <ListItem margin="25px 0">Серверная валидация запроса</ListItem>
         <ListItem>Пагинация</ListItem>
-        <ListItem margin="25px 0">Кеширование</ListItem>
-        <ListItem>Нормализация данных</ListItem>
+        <ListItem margin="25px 0">Кеширование и нормализация</ListItem>
+        <ListItem>Оптимистичная реакция на действие</ListItem>
       </List>
       <Notes>
         После запроса нам в некоторых случаях надо до 5 запросов сделать, чтобы обновить другой UI
         Ошибки нужно обрабатывать уже в саге, форматировать и только за тем передавать в компонент
         Пагинация в Redux делается вручуную, приходится заводить локальный стейт под неё
         Кеширование коллекций работает, но вот сущностей нет
-        Данные нужно нормализовать описывая схемы нормализации, чтобы ими можно было пользоваться
+        Данные нужно нормализовать описывая схемы нормализации, чтобы как-то кешировать их
+        Оптимистичный UI практически не используем, потому что в текущей архитектуре это костыли
       </Notes>
     </Slide>
 
@@ -387,7 +403,7 @@ const Presentation = () => (
       textSize={24}
       ranges={[
         { loc: [0, 0], title: 'Описываем данные запроса' },
-        { loc: [2, 22], note: 'Estimation: 2 min' },
+        { loc: [2, 22], note: 'Estimation: 5 min' },
       ]}
     />
     <CodeSlide
@@ -398,7 +414,7 @@ const Presentation = () => (
         { loc: [0, 0], title: 'Обрабатываем данные в компоненте' },
         { loc: [1, 2] },
         { loc: [3, 4] },
-        { loc: [12, 22], note: 'Estimation: 4 min' },
+        { loc: [12, 22], note: 'Estimation: 5 min' },
       ]}
     />
 
@@ -419,7 +435,7 @@ const Presentation = () => (
       </Notes>
     </Slide>
     <Slide bgColor="dracula">
-      <Heading size={4} textColor="secondary" margin="0 0 20px 0">Инвалидация</Heading>
+      <Heading size={4} textColor="secondary" margin="0 0 20px">Инвалидация</Heading>
       <CodePane
         lang="js"
         source={codeSamples.mutation}
@@ -503,23 +519,97 @@ const Presentation = () => (
       </Heading>
       <Notes>Стоит 80 часов - окупится через полгода при 10 задачах с серверными реквестами</Notes>
     </Slide>
+    <Slide>
+      <Heading fit textColor="secondary" margin="0 0 20px">
+        Оценка миграции приложения для клинеров
+      </Heading>
+      <Table style={{ borderSpacing: '0 15px', color: colors.white }}>
+        <TableRow style={{ color: colors.red }}>
+          <TableHeaderItem>Задача</TableHeaderItem>
+          <TableHeaderItem>Количество</TableHeaderItem>
+          <TableHeaderItem>Время</TableHeaderItem>
+        </TableRow>
+        <TableRow>
+          <TableItem>GET запрос</TableItem>
+          <TableItem>30</TableItem>
+          <TableItem>15 ч</TableItem>
+        </TableRow>
+        <TableRow>
+          <TableItem>POST запрос</TableItem>
+          <TableItem>14</TableItem>
+          <TableItem>15 ч</TableItem>
+        </TableRow>
+        <TableRow>
+          <TableItem>Пагинация</TableItem>
+          <TableItem>2</TableItem>
+          <TableItem>2 ч</TableItem>
+        </TableRow>
+        <TableRow>
+          <TableItem>Инвалидация</TableItem>
+          <TableItem>13</TableItem>
+          <TableItem>8 ч</TableItem>
+        </TableRow>
+        <TableRow>
+          <TableItem>Валидация</TableItem>
+          <TableItem>12</TableItem>
+          <TableItem>5 ч</TableItem>
+        </TableRow>
+        <TableRow>
+          <TableItem>Кеширование</TableItem>
+          <TableItem>2</TableItem>
+          <TableItem>5 м</TableItem>
+        </TableRow>
+        <TableRow>
+          <TableItem>Оптимистичный UI</TableItem>
+          <TableItem>3</TableItem>
+          <TableItem>15 м</TableItem>
+        </TableRow>
+        <TableRow style={{ color: colors.red }}>
+          <TableItem/>
+          <TableItem>Итого</TableItem>
+          <TableItem>45 ч 20 м</TableItem>
+        </TableRow>
+        <Notes>
+          Пагинация сейчас есть только на заказах, но хотелось бы её добавить в новости
+          В 13 местах мы перезапрашиваем данные после действия.
+          Например, после удаления назначения на заказ мы делаем 5 запросов,
+          чтобы из приложения исчез заказ, появилась новость и изменились данные клинера.
+          В мутации мы можем описать нужные данные и они вернуться в рамках одного запроса.
+          На сервере валидируются действия с заказом, изменения расписания и графика,
+          запросы на компенсацию химии и прохождении онлайн воронки.
+          Кеширования сущности сейчас вообще нет. Имеет смысл кешировать сущности новости и заказа.
+          Оптимистично можно реагировать на прочтение новости, оценку клиента, отправку обжалования
+          Раньше после оценки клиента клинер ждал порядка 20-30 секунд,
+          пока бэкенд занимался автоназначением заказов
+
+          Переписать сложнее чем написать с нуля, но писать с нуля нельзя,
+          потому что слишком велик риск забыть что-то связать.
+        </Notes>
+      </Table>
+    </Slide>
 
     <Slide bgColor="primary" textColor="tertiary">
-      <Heading fit textColor="secondary" caps>
-        Q & A
-      </Heading>
+      <Heading size={1} textColor="secondary">Когда окупится</Heading>
     </Slide>
 
-    <Slide bgColor="tertiary">
-      <BlockQuote>
-        <Quote textColor="secondary">Example Quote</Quote>
-        <Cite margin="10px 0 0 30px" textColor="primary">Author</Cite>
-      </BlockQuote>
+    <Slide bgColor="primary" textColor="tertiary">
+      <Heading size={1} textColor="secondary">Вывод</Heading>
     </Slide>
-    <Slide>
-      <Heading size={4} textColor="secondary" margin="0 0 30px">Become a psycho using GIF</Heading>
-      <Image src={images.psycho} width={900}/>
-      <Notes>gifs work too</Notes>
+
+    <Slide bgColor="primary" textColor="tertiary">
+      <Heading size={1} textColor="secondary">HR Бренд</Heading>
+      <List>
+        <ListItem>Вакансии с GraphQL привлекают</ListItem>
+        <ListItem margin="25px 0">Информационные поводы для статей</ListItem>
+        <ListItem>Поле для докладов на конференциях</ListItem>
+        <ListItem margin="25px 0">Возможность нести экспертизу в массы</ListItem>
+      </List>
+    </Slide>
+
+    <Slide bgColor="primary" textColor="tertiary">
+      <Heading fit textColor="secondary">
+        Q & A
+      </Heading>
     </Slide>
   </Deck>
 );

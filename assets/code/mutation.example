@@ -1,19 +1,20 @@
-const UPDATE_CLEANER = gql`
-  mutation UpdateCleaner($cleaner: CleanerPayload!) {
-    updateCleaner(cleaner: $cleaner) {
+const DELETE_ASSIGNMENT = gql`
+  mutation DeleteAssignment($orderId: ID!) {
+    deleteAssignment(orderId: $orderId) {
       cleaner {
-        id
-        name
-        phone
+        ordersCount
       }
-      profile {
-        name
-        phone
+      order(orderId: $orderId) {
+        id
       }
       notifications {
         id
         title
         htmlBody
+      }
+      penalties {
+        id
+        totalCents
       }
     }
   }

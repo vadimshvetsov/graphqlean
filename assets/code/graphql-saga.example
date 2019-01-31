@@ -1,0 +1,15 @@
+import { call, takeLatest } from 'redux-saga/effects';
+
+import client from 'utils/client';
+import { GET_CLEANER } from 'graphql/queries';
+  
+export const fetchCleaner = () => client.query({ query: GET_CLEANER });
+ 
+export function* fetchCleanerWorker() {
+  const { data: { cleaner } } = yield call(fetchCleaner);
+  // Do something with cleaner data
+}
+ 
+export default function* profileWatcher() {
+  yield takeLatest('profile/FETCH_CLEANER', fetchCleanerWorker);
+}

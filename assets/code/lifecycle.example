@@ -1,0 +1,18 @@
+import { graphql, compose } from 'react-apollo';
+import { connect } from 'react-redux';
+
+class Notifications extends Component {
+  ...
+  componentDidUpdate(prevProps) {
+    const { notifications: { data, loading, error } } = this.props;
+    if (prevProps.notifications.loading && !loading && !error) {
+      this.doAnything();
+    }
+  }
+  ...
+}
+
+export default compose(
+  graphql(GET_NOTIFICATIONS, { name: 'notifications' }),
+  connect(mapStateToProps, mapDispatchToProps),
+)(Notification);

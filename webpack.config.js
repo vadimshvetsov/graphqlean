@@ -27,7 +27,7 @@ module.exports = {
       fonts: path.join(__dirname, 'assets', 'fonts'),
       styles: path.join(__dirname, 'assets', 'styles'),
       images: path.join(__dirname, 'assets', 'images'),
-      code: path.join(__dirname, 'assets', 'code')
+      code: path.join(__dirname, 'assets', 'code'),
     }
   },
   module: {

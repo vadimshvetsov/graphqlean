@@ -1,17 +1,19 @@
 {
-  "name": "qlean-spectacle-boilerplate",
-  "version": "1.0.1",
-  "description": "Boilerplate for badass Qlean Spectacle presentations",
+  "name": "graphqlean",
+  "version": "1.0.0",
+  "description": "Presentation about migration costs and pros from Redux to GraphQL",
+  "main": "presentation/index.js",
+  "homepage": "https://vadimshvetsov.github.io/graphqlean",
   "scripts": {
     "build": "npm run clean & cross-env NODE_ENV=production webpack --config webpack.config.production.js",
     "clean": "rimraf dist",
-    "deploy": "npm run build && surge -p .",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "export": "spectacle-renderer --delay 3000",
     "lint": "eslint --ext .js,.jsx .",
     "start": "cross-env NODE_ENV=development node server.js"
   },
   "author": "Vadim Shvetsov <vadim@shvetsov.io>",
-  "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@babel/runtime": "^7.1.2",

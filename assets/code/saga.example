@@ -1,0 +1,19 @@
+import { call, takeLatest } from 'redux-saga/effects';
+import struct from 'utils/sagas';
+ 
+import { constants } from 'reducers';
+  
+export const fetchCleaner = () => ({ type: 'profile/FETCH_CLEANER' });
+ 
+export function* fetchCleanerWorker() {
+  yield call(
+    struct.get,
+    constants.cleanerStructId,
+    'v3/cleaners/self',
+    { formatResponse: ({ data }) => data },
+  );
+}
+ 
+export default function* profileWatcher() {
+  yield takeLatest('profile/FETCH_CLEANER', fetchCleanerWorker);
+}

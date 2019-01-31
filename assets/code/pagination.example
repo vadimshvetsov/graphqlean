@@ -1,0 +1,21 @@
+<Query query={GET_NOTIFICATIONS} variables={{ offset: 0, limit: 10 }} >
+  {({ data, loading, error, fetchMore }) => (
+    <Notifications
+      notifications={data.notifications || []}
+      isFetching={loading}
+      hasError={error}
+      onFetchMore={() => fetchMore({
+        variables: { offset: data.notifications.length },
+        updateQuery: (previousResult, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
+          return {
+            ...previousResult,
+            notifications: [
+              ...previousResult.notifications, ...fetchMoreResult.notifications
+            ],
+          });
+        }
+      })}
+    />
+  )}
+</Query>

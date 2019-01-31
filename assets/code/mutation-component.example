@@ -1,0 +1,18 @@
+<Mutation mutation={UPDATE_CLEANER}>
+  {mutate => {
+    <UpdateCleaner
+      onCleanerUpdate={({ cleaner }) =>
+        mutate({
+          variables: { cleaner },
+          optimisticResponse: {
+            updateCleaner: {
+              id: cleaner.id,
+              name: cleaner.name,
+              phone: cleaner.phone
+            }
+          }
+        })
+      }
+    />;
+  }}
+</Mutation>

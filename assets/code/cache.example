@@ -1,0 +1,12 @@
+const client = new ApolloClient({
+  ...
+  cacheRedirects: {
+    Query: {
+      notification: (_, { id }, { getCacheKey }) =>
+        getCacheKey({ __typename: 'Notification', id })
+      order: (_, { id }, { getCacheKey }) =>
+        getCacheKey({ __typename: 'Order', id })
+    }
+  }
+  ...
+})

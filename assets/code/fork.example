@@ -1,0 +1,9 @@
+import { all, fork } from 'redux-saga/effects';
+ 
+import profileWatcher from 'sagas/profile';
+ 
+export default function* root() {
+  yield all([
+    fork(profileWatcher),
+  ]);
+}

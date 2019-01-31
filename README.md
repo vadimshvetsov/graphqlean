@@ -25,3 +25,9 @@ Building the dist version of the project is as easy as running
 ```sh
 npm run build
 ```
+
+Deploy the slideshow to Github pages with running
+
+```sh
+npm run deploy
+```

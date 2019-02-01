@@ -26,7 +26,7 @@ Building the dist version of the project is as easy as running
 npm run build
 ```
 
-Deploy the slideshow to Github pages with running
+Deploy the slideshow to surge.sh with running
 
 ```sh
 npm run deploy

@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "Presentation about migration costs and pros from Redux to GraphQL",
   "main": "presentation/index.js",
-  "homepage": "https://vadimshvetsov.github.io/graphqlean",
+  "homepage": "https://graphqlean.shvetsov.io",
   "scripts": {
     "build": "npm run clean & cross-env NODE_ENV=production webpack --config webpack.config.production.js",
     "clean": "rimraf dist",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d .",
+    "deploy": "npm run build && surge -p .",
     "export": "spectacle-renderer --delay 3000",
     "lint": "eslint --ext .js,.jsx .",
     "start": "cross-env NODE_ENV=development node server.js"
@@ -60,7 +59,6 @@
     "eslint-plugin-react": "^7.11.1",
     "express": "^4.16.3",
     "file-loader": "^2.0.0",
-    "gh-pages": "^2.0.1",
     "html-loader": "^0.5.5",
     "is-buffer": "^2.0.3",
     "markdown-loader": "^4.0.0",
